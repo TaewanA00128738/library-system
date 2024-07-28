@@ -1,5 +1,6 @@
 import re
-from datetime import datetime, timedelta
+import unittest
+from datetime import datetime
 
 class User:
     def __init__(self, name, contact, email, address):
@@ -10,7 +11,7 @@ class User:
         self.borrowed_books = []
 
 class Book:
-    def __init__(self, name, status="available"):
+    def __init__(self, name, status="availables"):
         self.name = name
         self.status = status
 
@@ -20,28 +21,15 @@ class LibrarySystem:
         self.books = []
         self.borrow_history = []
 
-    def create_account(self):
-        name = input("Enter your name: ")
-        contact = input("Enter your contact number (10 digits): ")
-        while not re.match(r'^\d{10}$', contact):
-            print("Invalid contact number format. Please enter 10 digits.")
-            contact = input("Enter your contact number (10 digits): ")
-
-        email = input("Enter your email: ")
-        while not re.match(r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$', email):
-            print("Invalid email format. Please enter a valid email.")
-            email = input("Enter your email: ")
-
-        street_number = input("Street Number: ")
-        street_name = input("Street Name: ")
-        city = input("City: ")
-        state = input("State: ")
-        postal_code = input("Postal Code: ")
-
-        address = (street_number, street_name, city, state, postal_code)
+    def create_account(self, name, contact, email, address):
         user = User(name, contact, email, address)
         self.users.append(user)
         print("Account created successfully.")
+        return user
+    
+    def add_book(self, book_name):
+        self.books.append(Book(book_name))
+        print(f"{book_name} added to the library.")
     
     def search_book(self, book_name):
         for book in self.books:
@@ -74,7 +62,7 @@ class LibrarySystem:
             print(f"Book with name {book_name} not found.")
         else:
             print(f"You did not borrow {book.name}.")
-    
+
     def display_menu(self):
         while True:
             print("\nLibrary System Menu:")
@@ -88,11 +76,28 @@ class LibrarySystem:
             choice = input("Enter your choice: ")
             
             if choice == "1":
-                self.create_account()
+                name = input("Enter your name: ")
+                contact = input("Enter your contact number (10 digits): ")
+                while not re.match(r'^\d{10}$', contact):
+                    print("Invalid contact number format. Please enter 10 digits.")
+                    contact = input("Enter your contact number (10 digits): ")
+
+                email = input("Enter your email: ")
+                while not re.match(r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$', email):
+                    print("Invalid email format. Please enter a valid email.")
+                    email = input("Enter your email: ")
+
+                street_number = input("Street Number: ")
+                street_name = input("Street Name: ")
+                city = input("City: ")
+                state = input("State: ")
+                postal_code = input("Postal Code: ")
+
+                address = (street_number, street_name, city, state, postal_code)
+                self.create_account(name, contact, email, address)
             elif choice == "2":
                 book_name = input("Enter the name of the book to add: ")
-                self.books.append(Book(book_name))
-                print(f"{book_name} added to the library.")
+                self.add_book(book_name)
             elif choice == "3":
                 book_name = input("Enter the name of the book to remove: ")
                 book = self.search_book(book_name)
@@ -116,13 +121,51 @@ class LibrarySystem:
                     book_name = input("Enter the name of the book you want to return: ")
                     self.return_book(user, book_name)
                 else:
-                    print(f"User with name {contact_number} not found.")
+                    print(f"User with contact number {contact_number} not found.")
             elif choice == "0":
                 print("Exiting the Library System. Thank you!")
                 break
             else:
-                print("Invalid choice. Please enter a number between 1 and 9.")
+                print("Invalid choice. Please enter a number between 1 and 5.")
+
+class TestLibrarySystem(unittest.TestCase):
+
+    def setUp(self):
+        self.library_system = LibrarySystem()
+        self.user = self.library_system.create_account("John Doe", "1234567890", "john.doe@example.com", ("123", "Main St", "Anytown", "AT", "12345"))
+        self.library_system.add_book("Python Programming")
+        self.library_system.add_book("Data Science with Python")
+
+    def test_create_account(self):
+        self.assertEqual(len(self.library_system.users), 1)
+        self.assertEqual(self.user.name, "John Doe")
+        self.assertEqual(self.user.contact, "1234567890")
+        self.assertEqual(self.user.email, "john.doe@example.com")
+
+    def test_add_book(self):
+        self.library_system.add_book("New Book")
+        self.assertEqual(len(self.library_system.books), 3)
+
+    def test_borrow_book(self):
+        self.library_system.borrow_book(self.user, "Python Programming")
+        book = self.library_system.search_book("Python Programming")
+        self.assertEqual(book.status, "not available")
+        self.assertIn(book, self.user.borrowed_books)
+
+    def test_borrow_nonexistent_book(self):
+        self.library_system.borrow_book(self.user, "Nonexistent Book")
+        # No assertion here since the method just prints an error message
+
+    def test_return_book(self):
+        self.library_system.borrow_book(self.user, "Data Science with Python")
+        self.library_system.return_book(self.user, "Data Science with Python")
+        book = self.library_system.search_book("Data Science with Python")
+        self.assertEqual(book.status, "available")
+        self.assertNotIn(book, self.user.borrowed_books)
+
+    def test_return_nonexistent_book(self):
+        self.library_system.return_book(self.user, "Nonexistent Book")
+        
 
 if __name__ == "__main__":
-    library_system = LibrarySystem()
-    library_system.display_menu()
+    unittest.main()
