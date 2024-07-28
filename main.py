@@ -40,6 +40,12 @@ class LibrarySystem:
         user = User(name, contact, email, address)
         self.users.append(user)
         print("Account created successfully.")
+
+    def search_book(self, book_name):
+        for book in self.books:
+            if book.name == book_name:
+                return book
+        return None
    
     def display_menu(self):
         while True:
@@ -60,7 +66,13 @@ class LibrarySystem:
                 self.books.append(Book(book_name))
                 print(f"{book_name} added to the library.")
             elif choice == "3":
-                pass
+                book_name = input("Enter the name of the book to remove: ")
+                book = self.search_book(book_name)
+                if book:
+                    self.books.remove(book)
+                    print(f"{book_name} removed from the library.")
+                else:
+                    print(f"Book with name {book_name} not found.")
             elif choice == "4":
                 pass
             elif choice == "5":
