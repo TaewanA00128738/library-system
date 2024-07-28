@@ -7,11 +7,16 @@ class User:
         self.contact = contact
         self.email = email
         self.address = address
-
+        
+class Book:
+    def __init__(self, name, status="available"):
+        self.name = name
+        self.status = status
 class LibrarySystem:
 
     def __init__(self):
         self.users = []
+        self.books = []
 
     def create_account(self):
         name = input("Enter your name: ")
@@ -51,7 +56,9 @@ class LibrarySystem:
             if choice == "1":
                 self.create_account()
             elif choice == "2":
-                pass
+                book_name = input("Enter the name of the book to add: ")
+                self.books.append(Book(book_name))
+                print(f"{book_name} added to the library.")
             elif choice == "3":
                 pass
             elif choice == "4":
