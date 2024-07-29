@@ -11,7 +11,7 @@ class User:
         self.borrowed_books = []
 
 class Book:
-    def __init__(self, name, status="availables"):
+    def __init__(self, name, status="available"):
         self.name = name
         self.status = status
 
@@ -168,4 +168,5 @@ class TestLibrarySystem(unittest.TestCase):
         
 
 if __name__ == "__main__":
-    unittest.main()
+    library_system = LibrarySystem()
+    library_system.display_menu()
