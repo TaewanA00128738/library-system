@@ -95,5 +95,19 @@ After you are done, you can deactivate the virtual environment:
    ```
    deactivate
    ```
+Using Build script:
+-------------------
+For Unix-like systems, you need to make the build.sh script executable:
+   ```
+   chmod +x build.sh
+   ```
+Run the script
+   ```
+   ./build.sh
+   ```
+For Windows systems, simply double-click the build.bat file or run it from the Command Prompt:
+   ```
+   build.bat
+   ```
 
 Enjoy using the Library System Application!
