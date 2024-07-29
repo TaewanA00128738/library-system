@@ -44,7 +44,7 @@ Setup Instructions:
 
 7. Run the PyInstaller to create an executable:
    ```
-   pyinstaller –onefile main.py
+   pyinstaller --onefile main.py
    ```
 
 8. After the build process completes, you will find the executable file in the `dist` directory.
