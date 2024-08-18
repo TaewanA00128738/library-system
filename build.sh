@@ -19,7 +19,7 @@ pip install pyinstaller
 
 # Run tests
 echo "Running tests..."
-python -m unittest $SCRIPT
+python -m unittest test-library-system.py
 if [ $? -ne 0 ]; then
     echo "Tests failed. Exiting."
     deactivate

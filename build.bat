@@ -19,7 +19,7 @@ pip install pyinstaller
 
 REM Run tests
 echo Running tests...
-python -m unittest %SCRIPT%
+python -m unittest test-library-system.py
 if %ERRORLEVEL% NEQ 0 (
     echo Tests failed. Exiting.
     call %ENV_DIR%\Scripts\deactivate
