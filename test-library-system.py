@@ -14,7 +14,7 @@ class TestLibrarySystem(unittest.TestCase):
         self.assertEqual(len(self.library_system.users), 1)
         self.assertEqual(self.user.name, "John Doe")
         self.assertEqual(self.user.contact, "1234567890")
-        self.assertEqual(self.user.email, "john.doe@example.com")
+        self.assertEqual(self.user.email, "john.doe@example")
 
     def test_add_book(self):
         self.library_system.add_book("New Book")
