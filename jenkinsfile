@@ -51,4 +51,20 @@ pipeline {
         }
         
     }
+
+    post {
+        always {
+            echo 'Cleaning up...'
+            sh '''
+                source myenv/bin/activate
+                deactivate
+            '''
+        }
+        success {
+            echo 'Build and tests passed!'
+        }
+        failure {
+            echo 'Build or tests failed.'
+        }
+    }
 }
