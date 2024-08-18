@@ -10,11 +10,11 @@ Prerequisites:
 
 Setup Instructions:
 -------------------
-1. Clone the repository or download the `library_system.py` script to your local machine.
+1. Clone the repository or download the `main.py` script to your local machine.
 
 2. Open a terminal (Command Prompt, PowerShell, or a terminal emulator on Linux/Mac).
 
-3. Navigate to the directory where `library_system.py` is located.
+3. Navigate to the directory where `main.py` is located.
 
 4. Create a virtual environment:
    ```
@@ -59,28 +59,28 @@ Running the Application:
 2. Run the executable:
 - On Windows:
   ```
-  library_system.exe
+  main.exe
   ```
 - On MacOS/Linux:
   ```
-  ./library_system
+  ./main
   ```
 
 3. Follow the on-screen menu to create accounts, add books, borrow books, and return books.
 
 Testing the Application:
 ------------------------
-The `library_system.py` script includes unit tests using the `unittest` framework.
+The `test-library-system.py` script includes unit tests using the `unittest` framework.
 
 1. Ensure the virtual environment is activated.
 
 2. Run the tests:
    ```
-   python main.py
+   python test-library-system.py
    ```
    or
    ```
-   python3 main.py
+   python3 test-library-system.py
    ```
 
 The tests will automatically run, and the results will be displayed in the terminal.
