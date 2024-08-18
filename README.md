@@ -44,7 +44,7 @@ Setup Instructions:
 
 7. Run the PyInstaller to create an executable:
    ```
-   pyinstaller --onefile main.py
+   pyinstaller --onefile main.py -n library_system
    ```
 
 8. After the build process completes, you will find the executable file in the `dist` directory.
@@ -59,11 +59,11 @@ Running the Application:
 2. Run the executable:
 - On Windows:
   ```
-  main.exe
+  library_system.exe
   ```
 - On MacOS/Linux:
   ```
-  ./main
+  ./library_system
   ```
 
 3. Follow the on-screen menu to create accounts, add books, borrow books, and return books.
